@@ -14,39 +14,38 @@ function writePassword() {
 generateBtn.addEventListener("click", writePassword);
 
 function generatePassword () {
-    var passwordFeatures = {
-        "length": 8,
-        "special": false,
-        "numeric": true,
-        "lowercase": true,
-        "uppercase": false,
-    }
+    var passwordFeatures;
+   
     alert("Please select from the following criteria to generate your password:");
-    passwordFeatures.length = prompt("Please provide a password length between 8 and 128.");
-    if (isNaN(passwordFeatures.length)) {
-        alert(`Sorry, ${passwordFeatures.length} is not a number. Using 20 instead`);
-        passwordFeatures.length = 25;
-    } 
-    else if (passwordFeatures.length < 8) {
-        alert("Password must be at least 8 characters long. Using 8 instead");
-    }
-    else if (passwordFeatures.length > 128) {
-        alert("Password cannot exceed 128 characters. Using 128 instead");
-        passwordFeatures.length = 128;
-    }
-    //Maybe revisit this to use while loops instead.
-
-    passwordFeature.special = confirm("Click OK to confirm including special characters");
-    passwordNumeric.numeric = confirm("Click OK to confirm including numeric characters");
-    passwordNumeric.lowercase =  confirm("Click OK to confirm including lowercase characters");
-    passwordNumeric.uppercase = confirm("Click OK to confirm including uppercase characters");
     
-    if (passwordFeatures.includes("true",0) = false) {
-        alert("Using default settings");
-        passwordFeatures.numeric, passwordFeatures.lowercase = true;
-    }
+    do {
+        passwordFeatures.length = prompt("Provide a password length between 8 and 128.");
+        if (!passwordFeatures.length) {
+            alert ("Using default length.");
+            passwordFeatures.length = 12;
+        }
+        else if (isNaN(passwordFeatures.length)) {
+            alert(`Sorry, ${passwordFeatures.length} is not a number.`);
+        } 
+        else if (passwordFeatures.length < 8) {
+            alert("Password must be at least 8 characters long.");
+        }
+        else if (passwordFeatures.length > 128) {
+            alert("Password cannot exceed 128 characters.");
+        }
+    } while (passwordFeatures.length < 8 || passwordFeatures.length > 128 || isNaN(passwordFeatures.length));
 
-    console.log(passwordFeatures)
+    passwordFeatures.special = confirm("Click OK to confirm including special characters");
+    passwordFeatures.numeric = confirm("Click OK to confirm including numeric characters");
+    passwordFeatures.lowercase =  confirm("Click OK to confirm including lowercase characters");
+    passwordFeatures.uppercase = confirm("Click OK to confirm including uppercase characters");
+
+    if (!Object.values(passwordFeatures).includes(true)) {
+        alert("No characters chosen, using default settings");
+        passwordFeatures.numeric, passwordFeatures.lowercase = true;
+    } else {
+        alert("You have chosen valid entries")
+    }
 
     // WHEN all prompts are answered
     // THEN a password is generated that matches the selected criteria
