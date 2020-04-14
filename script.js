@@ -14,7 +14,7 @@ function writePassword() {
 generateBtn.addEventListener("click", writePassword);
 
 function generatePassword () {
-    var passwordFeatures;
+    var passwordFeatures = {};
    
     alert("Please select from the following criteria to generate your password:");
     
@@ -22,7 +22,7 @@ function generatePassword () {
         passwordFeatures.length = prompt("Provide a password length between 8 and 128.");
         if (!passwordFeatures.length) {
             alert ("Using default length.");
-            passwordFeatures.length = 12;
+            passwordFeatures.length = 20;
         }
         else if (isNaN(passwordFeatures.length)) {
             alert(`Sorry, ${passwordFeatures.length} is not a number.`);
@@ -45,13 +45,42 @@ function generatePassword () {
         passwordFeatures.numeric, passwordFeatures.lowercase = true;
     } else {
         alert("You have chosen valid entries")
+        
+        var password = "";
+        var selectorString = "";
+        var alphabetlower = "abcdefghijklmnopqrstuvwxyz";
+        var alphabetupper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        var numerals = "0123456789";
+        var specChars = "~!@#$%^&*_-+=`|(){}[]:;\"'<>,.?/\\";
+
+        if (passwordFeatures.special) {
+            selectorString += specChars;
+        }
+        if (passwordFeatures.numeric) {
+            selectorString += numerals;
+        }
+        if (passwordFeatures.lowercase) {
+            selectorString += alphabetlower;
+        }
+        if (passwordFeatures.uppercase) {
+            selectorString += alphabetupper;
+        }
+
+        console.log(selectorString)
+
+        while (password.length < passwordFeatures.length) {
+            password += selectorString.charAt(Math.floor(Math.random() * selectorString.length));
+        }
+
+        return password;        
     }
-
-    // WHEN all prompts are answered
-    // THEN a password is generated that matches the selected criteria
-    // WHEN the password is generated
-    // THEN the password is either displayed in an alert or written to the page
-
-    // Figure out what to do if no options are selected.
-
 }
+/*
+    for i, add one random character from given string, where the string equals all the true 
+
+    WHEN all prompts are answered
+    THEN a password is generated that matches the selected criteria
+    WHEN the password is generated
+    THEN the password is either displayed in an alert or written to the page
+
+    */
