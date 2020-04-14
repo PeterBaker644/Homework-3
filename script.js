@@ -16,6 +16,8 @@ generateBtn.addEventListener("click", writePassword);
 function generatePassword () {
     var passwordFeatures = {};
    
+    // Query length and features of password.
+
     alert("Please select from the following criteria to generate your password:");
     
     do {
@@ -35,6 +37,8 @@ function generatePassword () {
         }
     } while (passwordFeatures.length < 8 || passwordFeatures.length > 128 || isNaN(passwordFeatures.length));
 
+    passwordFeatures.length = Number(passwordFeatures.length)
+
     passwordFeatures.special = confirm("Click OK to confirm including special characters");
     passwordFeatures.numeric = confirm("Click OK to confirm including numeric characters");
     passwordFeatures.lowercase =  confirm("Click OK to confirm including lowercase characters");
@@ -42,45 +46,48 @@ function generatePassword () {
 
     if (!Object.values(passwordFeatures).includes(true)) {
         alert("No characters chosen, using default settings");
-        passwordFeatures.numeric, passwordFeatures.lowercase = true;
-    } else {
+        passwordFeatures.numeric = true, passwordFeatures.lowercase = true;
+    } else {    
         alert("You have chosen valid entries")
-        
-        var password = "";
-        var selectorString = "";
-        var alphabetlower = "abcdefghijklmnopqrstuvwxyz";
-        var alphabetupper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        var numerals = "0123456789";
-        var specChars = "~!@#$%^&*_-+=`|(){}[]:;\"'<>,.?/\\";
-
-        if (passwordFeatures.special) {
-            selectorString += specChars;
-        }
-        if (passwordFeatures.numeric) {
-            selectorString += numerals;
-        }
-        if (passwordFeatures.lowercase) {
-            selectorString += alphabetlower;
-        }
-        if (passwordFeatures.uppercase) {
-            selectorString += alphabetupper;
-        }
-
-        console.log(selectorString)
-
-        while (password.length < passwordFeatures.length) {
-            password += selectorString.charAt(Math.floor(Math.random() * selectorString.length));
-        }
-
-        return password;        
     }
+
+    // Generate a string of characters according to the user selection.
+    
+    var password = "";
+    var selectorString = "";
+    var alphabetlower = "abcdefghijklmnopqrstuvwxyz";
+    var alphabetupper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    var numerals = "0123456789";
+    var specChars = "~!@#$%^&*_-+=`|(){}[]:;\"'<>,.?/\\";
+
+    if (passwordFeatures.special) {
+        selectorString += specChars;
+    }
+    if (passwordFeatures.numeric) {
+        selectorString += numerals;
+    }
+    if (passwordFeatures.lowercase) {
+        selectorString += alphabetlower;
+    }
+    if (passwordFeatures.uppercase) {
+        selectorString += alphabetupper;
+    }
+
+    // I would love to clean this up ^^^? Not sure how to get rid of so many ifs in a row.
+
+    // Generate random characters for the length of passwordFeature.length with all the characters of selectorString.
+
+    console.log(selectorString)
+
+    while (password.length < passwordFeatures.length) {
+        password += selectorString.charAt(Math.floor(Math.random() * selectorString.length));
+    }
+
+    return password;        
 }
+
 /*
-    for i, add one random character from given string, where the string equals all the true 
 
-    WHEN all prompts are answered
-    THEN a password is generated that matches the selected criteria
-    WHEN the password is generated
-    THEN the password is either displayed in an alert or written to the page
+I would love for this code to look less like a grocery list, or a jenga tower, but I'm not sure how I would do that.
 
-    */
+*/
