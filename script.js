@@ -5,9 +5,7 @@ var generateBtn = document.querySelector("#generate");
 function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
-
   passwordText.value = password;
-
 }
 
 // Add event listener to generate button
@@ -73,8 +71,6 @@ function generatePassword () {
         selectorString += alphabetupper;
     }
 
-    // I would love to clean this up ^^^? Not sure how to get rid of so many ifs in a row.
-
     // Generate random characters for the length of passwordFeature.length with all the characters of selectorString.
 
     console.log(selectorString)
@@ -85,9 +81,3 @@ function generatePassword () {
 
     return password;        
 }
-
-/*
-
-I would love for this code to look less like a grocery list, or a jenga tower, but I'm not sure how I would do that.
-
-*/
