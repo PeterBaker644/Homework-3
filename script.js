@@ -88,7 +88,7 @@ function generatePassword () {
     // The keyString interator. This will run until the generated meets the criteria provided. Probably not infinite.
     while (i <= selectedFeatures.length) {
         console.log('Initial i = ' + i)
-        if (keyString.IndexOf(i) != s.LastIndexOf(i)) {
+        if (keyString.indexOf(i) != keyString.lastIndexOf(i)) {
             console.log("Success. keyString includes " + i);
             i++;
         } else {
