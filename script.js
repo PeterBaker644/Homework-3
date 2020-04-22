@@ -37,7 +37,7 @@ function generatePassword () {
 
     passwordFeatures.length = Number(passwordFeatures.length)
 
-    passwordFeatures.special = confirm("Click OK to confirm including special characters");
+    passwordFeatures.specChars = confirm("Click OK to confirm including special characters");
     passwordFeatures.numeric = confirm("Click OK to confirm including numeric characters");
     passwordFeatures.lowercase =  confirm("Click OK to confirm including lowercase characters");
     passwordFeatures.uppercase = confirm("Click OK to confirm including uppercase characters");
@@ -52,32 +52,98 @@ function generatePassword () {
     // Generate a string of characters according to the user selection.
     
     var password = "";
-    var selectorString = "";
-    var alphabetlower = "abcdefghijklmnopqrstuvwxyz";
-    var alphabetupper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    var selectedFeatures = [];
+    var keyString = "";
+    var alphabetLower = "abcdefghijklmnopqrstuvwxyz";
+    var alphabetUpper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     var numerals = "0123456789";
     var specChars = "~!@#$%^&*_-+=`|(){}[]:;\"'<>,.?/\\";
 
-    if (passwordFeatures.special) {
-        selectorString += specChars;
+    console.log(selectedFeatures);
+
+    if (passwordFeatures.specChars) {
+        selectedFeatures.push("specChars");
     }
     if (passwordFeatures.numeric) {
-        selectorString += numerals;
+        selectedFeatures.push("numerals");
     }
     if (passwordFeatures.lowercase) {
-        selectorString += alphabetlower;
+        selectedFeatures.push("alphabetLower");
     }
     if (passwordFeatures.uppercase) {
-        selectorString += alphabetupper;
+        selectedFeatures.push("alphabetUpper");
     }
+
+    function genKey() {
+        keyString = "";
+        while (keyString.length < passwordFeatures.length) {
+            keyString += (Math.floor(Math.random() * selectedFeatures.length + 1)).toString();
+        }
+        console.log(keyString);
+    }   
+
+    genKey();
+    var i = 1
+
+    // The keyString interator. This will run until the generated meets the criteria provided. Probably not infinite.
+    while (i <= selectedFeatures.length) {
+        console.log('Initial i = ' + i)
+        if (keyString.IndexOf(i) != s.LastIndexOf(i)) {
+            console.log("Success. keyString includes " + i);
+            i++;
+        } else {
+            // r = confirm("The key has not generated properly.");
+            // if (r == true) {
+                i = 1;
+                console.log('Reset i = ' + 1);
+                genKey();
+            // } else {
+            //     break;
+            // }
+        }        
+    }
+
+    console.log(keyString);
+
+    // For Example: selectedFeatures = ["specChars","numerals","alphabetLower"]
+
+    function randomNumber(index) {
+        if (selectedFeatures[(index - 1)] == "specChars") {
+            random = specChars.charAt(Math.floor(Math.random() * specChars.length));
+        } else if (selectedFeatures[(index - 1)] == "numerals") {
+            random = numerals.charAt(Math.floor(Math.random() * numerals.length));
+        } else if (selectedFeatures[(index - 1)] == "alphabetLower") {
+            random = alphabetLower.charAt(Math.floor(Math.random() * alphabetLower.length));
+        } else if (selectedFeatures[(index - 1)] == "alphabetUpper") {
+            random = alphabetUpper.charAt(Math.floor(Math.random() * alphabetUpper.length));
+        }
+        return random;
+    }
+
+    for (j = 0; j < passwordFeatures.length; j++) {
+            var keyNumber = keyString.charAt(j); 
+            password += randomNumber(keyNumber);
+    }
+
+    return password;
+
+    //Given the keyNumber, the function must generate a random value of all features in the array passwordFeatures. Random number uses the string equal to passwordFeatures[keyNumber] (whatever.charAt(Math.floor(Math.random() * whatever.length)).
+
+}
+
+   
 
     // Generate random characters for the length of passwordFeature.length with all the characters of selectorString.
 
-    console.log(selectorString)
+//     console.log(selectorString)
 
-    while (password.length < passwordFeatures.length) {
-        password += selectorString.charAt(Math.floor(Math.random() * selectorString.length));
-    }
+//     while (password.length < passwordFeatures.length) {
+//         password += selectorString.charAt(Math.floor(Math.random() * selectorString.length));
+//     }
 
-    return password;        
-}
+//     return password;        
+
+
+// Create a key string of random numbers 1 through (number of features) the length of passwordFeature.length. Recreate this string until it contains all numbers. Create an array of 4 randomizer functions, or create a function I can pass strings to. Choose a randomizer from the array to execute based on the key string value, and write result to new string for every value in the string. 
+
+// Consider using cryptographically secure randomizers?
