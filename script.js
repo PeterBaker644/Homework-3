@@ -59,8 +59,6 @@ function generatePassword () {
     var numerals = "0123456789";
     var specChars = "~!@#$%^&*_-+=`|(){}[]:;\"'<>,.?/\\";
 
-    console.log(selectedFeatures);
-
     if (passwordFeatures.specChars) {
         selectedFeatures.push("specChars");
     }
@@ -79,31 +77,22 @@ function generatePassword () {
         while (keyString.length < passwordFeatures.length) {
             keyString += (Math.floor(Math.random() * selectedFeatures.length + 1)).toString();
         }
-        console.log(keyString);
+        // console.log(keyString);
     }   
 
     genKey();
     var i = 1
 
-    // The keyString interator. This will run until the generated meets the criteria provided. Probably not infinite.
+    // The keyString iterator. This will run until the generated key meets the criteria provided. Probably not infinite.
+
     while (i <= selectedFeatures.length) {
-        console.log('Initial i = ' + i)
         if (keyString.indexOf(i) != keyString.lastIndexOf(i)) {
-            console.log("Success. keyString includes " + i);
             i++;
         } else {
-            // r = confirm("The key has not generated properly.");
-            // if (r == true) {
                 i = 1;
-                console.log('Reset i = ' + 1);
                 genKey();
-            // } else {
-            //     break;
-            // }
         }        
     }
-
-    console.log(keyString);
 
     // For Example: selectedFeatures = ["specChars","numerals","alphabetLower"]
 
@@ -126,24 +115,4 @@ function generatePassword () {
     }
 
     return password;
-
-    //Given the keyNumber, the function must generate a random value of all features in the array passwordFeatures. Random number uses the string equal to passwordFeatures[keyNumber] (whatever.charAt(Math.floor(Math.random() * whatever.length)).
-
 }
-
-   
-
-    // Generate random characters for the length of passwordFeature.length with all the characters of selectorString.
-
-//     console.log(selectorString)
-
-//     while (password.length < passwordFeatures.length) {
-//         password += selectorString.charAt(Math.floor(Math.random() * selectorString.length));
-//     }
-
-//     return password;        
-
-
-// Create a key string of random numbers 1 through (number of features) the length of passwordFeature.length. Recreate this string until it contains all numbers. Create an array of 4 randomizer functions, or create a function I can pass strings to. Choose a randomizer from the array to execute based on the key string value, and write result to new string for every value in the string. 
-
-// Consider using cryptographically secure randomizers?
