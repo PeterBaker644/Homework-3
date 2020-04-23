@@ -9,3 +9,4 @@ I WANT to randomly generate a password that meets certain criteria
 SO THAT I can create a strong password that provides greater security
 ```
 
+![Password Generator Screenshot](https://raw.githubusercontent.com/PeterBaker644/Password-Generator/master/screenshots/Generator%20Screenshot.png)
